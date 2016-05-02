@@ -8,6 +8,7 @@ using AtTheMovies.Services;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
+using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -30,8 +31,15 @@ namespace AtTheMovies
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IGreetingService>(sp => new FancyGreeter());
-            services.AddScoped<IMovieData>(sp => new InMemoryMovieData());
+            services.AddScoped<IGreetingService, FancyGreeter>();
+            services.AddScoped<IMovieData, SqlMovieData>();
+
+            services.AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<MovieDb>(o =>
+                {
+                    o.UseSqlServer(Configuration["db:connection"]);
+                });
 
             services.AddMvc();
         }
@@ -88,9 +96,10 @@ namespace AtTheMovies
 
 
         // Entry point for the application.
-        public static void Main(string[] args) 
+        public static void Main(string[] args)
         {
-            WebApplication.Run<Startup>(args);
+           
+           // WebApplication.Run<Startup>(args);
         }
     }
 }

@@ -1,3 +1,6 @@
 ﻿{
-  "message":  "This is now a configurable greeting from config.json"  
+  "message": "This is now a configurable greeting from config.json",
+  "db": {
+    "connection": "server=(localdb)\\mssqllocaldb;initial catalog=moviedata;integrated security=true"
+  } 
 }

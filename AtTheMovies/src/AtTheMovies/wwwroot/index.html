@@ -3,8 +3,42 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
+    <script src="js/angular.js"></script>
 </head>
-<body>
-    Welcome!
+<body ng-app="movies">
+        <h1>At the Movies Ng Edition</h1>
+
+        <movie-list></movie-list>
+
+<script>
+        var module = angular.module("movies", []);
+
+        module.component("movieList", {
+            templateUrl: "movielist.html",
+            controllerAs: "m",
+            controller: function ($http) {
+                var model = this;
+
+                var refresh = function() {
+                    model.newMovie = { title: "Empty", length: 100 };
+                    $http.get("/api/movies")
+                        .then(function(response) {
+                            model.movies = response.data;
+                        });
+                };
+
+                
+                model.save = function(movie) {
+                    $http.post("/api/movies", movie)
+                        .then(refresh);
+                };
+
+                refresh();
+
+            }
+        });
+    </script>
+
+
 </body>
 </html>
