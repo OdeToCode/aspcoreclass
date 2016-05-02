@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using AtTheMovies.Middleware;
+using AtTheMovies.Services;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
@@ -17,9 +18,9 @@ namespace AtTheMovies
         public Startup()
         {
             Configuration = new ConfigurationBuilder()
-                                .AddJsonFile("config.json")
-                                .AddEnvironmentVariables()
-                                .Build();
+                .AddJsonFile("config.json")
+                .AddEnvironmentVariables()
+                .Build();
 
         }
 
@@ -30,7 +31,7 @@ namespace AtTheMovies
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IGreetingService>(sp => new FancyGreeter());
-
+            services.AddScoped<IMovieData>(sp => new InMemoryMovieData());
 
             services.AddMvc();
         }
@@ -61,8 +62,8 @@ namespace AtTheMovies
 
             app.UseMvc(rb =>
             {
-                rb.MapRoute("FirstRoute", "mvc", 
-                        new {controller = "Hello", action = "Index"});
+                rb.MapRoute("FirstRoute", "mvc",
+                    new {controller = "Hello", action = "Index"});
 
                 // /home/start
                 rb.MapRoute("Default", "{controller=Hello}/{action=Index}");
@@ -84,9 +85,12 @@ namespace AtTheMovies
         //        }
         //    };
         //}
-        
+
 
         // Entry point for the application.
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
+        public static void Main(string[] args) 
+        {
+            WebApplication.Run<Startup>(args);
+        }
     }
 }

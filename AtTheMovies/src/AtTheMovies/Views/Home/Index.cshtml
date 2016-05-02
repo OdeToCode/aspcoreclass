@@ -1,0 +1,24 @@
+﻿@using System.Threading.Tasks
+@model IEnumerable<Movie>
+
+<table class="table">
+
+   
+
+    @foreach (var movie in Model)
+    {
+        <tr>
+            <td>@movie.Title</td>
+            <td>@movie.Length</td>
+            <td>
+                <a asp-controller="Home"
+                   asp-action="Details"
+                   asp-route-id="@movie.Id"
+                   class="btn btn-default">Details</a>
+                <a asp-action="Edit" asp-route-id="@movie.Id"
+                   class="btn btn-default">Edit</a>                
+            </td>
+        </tr>
+    }
+   
+</table>

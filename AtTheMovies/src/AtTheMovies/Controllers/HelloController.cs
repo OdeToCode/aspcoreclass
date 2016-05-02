@@ -16,6 +16,6 @@ namespace AtTheMovies.Controllers
         public IActionResult Index()
         {
             return Content("Controller!");
-        }   
+        }
     }
 }
