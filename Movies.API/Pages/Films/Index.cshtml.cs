@@ -25,5 +25,7 @@ namespace Movies.API.Pages.Films
         {
             Movie = await _context.Movies.ToListAsync();
         }
+
+
     }
 }

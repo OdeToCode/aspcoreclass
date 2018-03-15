@@ -12,9 +12,9 @@ namespace Movies.API.Pages.Films
 {
     public class CreateModel : PageModel
     {
-        private readonly Movies.API.Services.MovieContext _context;
+        private readonly MovieContext _context;
 
-        public CreateModel(Movies.API.Services.MovieContext context)
+        public CreateModel(MovieContext context)
         {
             _context = context;
         }
