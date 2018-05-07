@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TrafficWeb.Data;
 using TrafficWeb.Middleware;
 using TrafficWeb.Services;
 
@@ -25,6 +26,8 @@ namespace TrafficWeb
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
+            services.AddSingleton<ICarDb, InMemoryCarDb>();
             services.AddSingleton<IGreeter, Greeter>();
 
         }
@@ -39,15 +42,14 @@ namespace TrafficWeb
             }
             else
             {
-                app.Run(async ctx =>
-                {
-                    await ctx.Response.WriteAsync("Error!");
-                });
+                app.UseExceptionHandler("/Exception");
             }
 
             app.UseHelloWorld(new SayHelloOptions { Path = "/ndc" });        
             app.UseStaticFiles();
-            
+
+            app.UseMvc();
+
             app.Run(async ctx =>
             {                
                 await ctx.Response.WriteAsync("Last piece of middleware");
