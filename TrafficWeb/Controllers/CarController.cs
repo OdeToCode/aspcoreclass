@@ -32,6 +32,7 @@ namespace TrafficWeb.Controllers
             if (ModelState.IsValid)
             {
                 db.Add(model);
+                db.SaveChanges();
                 return CreatedAtAction("Detail", new { id = model.Id }, model);
             }
             return BadRequest(ModelState);
@@ -47,6 +48,7 @@ namespace TrafficWeb.Controllers
                 {
                     return NotFound();
                 }
+                db.SaveChanges();
                 return new ObjectResult(updatedCar);
             }
             return BadRequest(ModelState);

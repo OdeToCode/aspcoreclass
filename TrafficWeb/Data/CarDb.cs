@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TrafficWeb.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace TrafficWeb.Data
 {
@@ -12,6 +11,46 @@ namespace TrafficWeb.Data
         Car Get(int id);
         Car Add(Car newCar);
         Car Update(int id, Car updatedCar);
+        int SaveChanges();
+    }
+
+    public class SqlCarDb : ICarDb
+    {
+        private readonly CarDbContext db;
+
+        public SqlCarDb(CarDbContext db)
+        {
+            this.db = db;
+        }
+
+        public int SaveChanges()
+        {
+            return db.SaveChanges();
+        }
+
+        public Car Add(Car newCar)
+        {
+            db.Cars.Add(newCar);            
+            return newCar;
+        }
+
+        public Car Get(int id)
+        {
+            return db.Cars.SingleOrDefault(c => c.Id == id);
+        }
+
+        public IEnumerable<Car> GetAll()
+        {
+            return db.Cars.OrderByDescending(c => c.Year);
+        }
+
+        public Car Update(int id, Car updatedCar)
+        {
+            updatedCar.Id = id;
+            var entityState = db.Attach(updatedCar);
+            entityState.State = EntityState.Modified;
+            return updatedCar;
+        }
     }
 
 
@@ -24,6 +63,10 @@ namespace TrafficWeb.Data
             new Car { Id = 3, Year = 2010, Manufacturer = "Tesla"}
         };
 
+        public int SaveChanges()
+        {
+            return 0;
+        }
 
         public Car Add(Car newCar)
         {
