@@ -19,7 +19,7 @@ namespace TrafficWeb.Controllers
 
         public string Index()
         {
-            return "Hello from a controller";
+            return "Hello from a controller - now using VSTS";
         }
 
         [Route("{name}")]
