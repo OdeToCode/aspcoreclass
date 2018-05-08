@@ -69,7 +69,9 @@ namespace TrafficWeb
                          
             app.UseHelloWorld(new SayHelloOptions { Path = "/ndc" });        
             app.UseStaticFiles();
-            app.UseAuthentication();
+            
+           app.UseAuthentication();
+
             app.UseMvc();
         }
     }
