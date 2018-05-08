@@ -16,6 +16,9 @@ namespace TrafficWeb.Controllers
         public CarController(ICarDb db)
         {
             this.db = db;
+
+            
+
         }
 
         [HttpGet]

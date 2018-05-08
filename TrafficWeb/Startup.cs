@@ -28,6 +28,7 @@ namespace TrafficWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+                    
 
             services.AddDbContext<CarDbContext>(options =>
               options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));

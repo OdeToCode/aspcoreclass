@@ -1,0 +1,13 @@
+﻿@using TrafficWeb.Model
+@model IEnumerable<Car>
+@{
+    ViewData["Title"] = "Default";
+}
+
+@foreach (var car in Model)
+{
+    <div>
+        @Html.Partial("_cardetails", car)
+    </div>
+}
+

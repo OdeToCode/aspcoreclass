@@ -7,16 +7,14 @@
 
 <h2>Car List</h2>
 
-<table>
-    @foreach (var car in Model.Cars)
-    {
-        <tr>
-            <td>@car.Id</td>
-            <td>@car.Year</td>
-            <td>@car.Manufacturer</td>
-        </tr>
-    }
-</table>
+<vc:car-list></vc:car-list>
+
+@*@foreach(var car in Model.Cars)
+{
+    <div>
+        @Html.Partial("_cardetails", car)
+    </div>
+}*@
 
 
 @section footer {
