@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +31,16 @@ namespace TrafficWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-                    
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+            }).AddOpenIdConnect(options =>
+            {
+                configuration.Bind("AzureAd", options);
+            })
+            .AddCookie();
 
             services.AddDbContext<CarDbContext>(options =>
               options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
@@ -44,6 +56,7 @@ namespace TrafficWeb
         public void Configure(IApplicationBuilder app, 
                               IHostingEnvironment env)
         {
+          
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -53,15 +66,11 @@ namespace TrafficWeb
                 app.UseExceptionHandler("/Exception");
             }
 
+                         
             app.UseHelloWorld(new SayHelloOptions { Path = "/ndc" });        
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseMvc();
-
-            app.Run(async ctx =>
-            {                
-                await ctx.Response.WriteAsync("Last piece of middleware");
-            });            
         }
     }
 }
