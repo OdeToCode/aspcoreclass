@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using aspcoreclass.Middleware;
+using aspcoreclass.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,15 +22,18 @@ namespace aspcoreclass
         }
 
 
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(
+            IServiceCollection services)
         {
+            services.AddMvc();
+            services.AddSingleton<ICoffeeDb, InMemoryCoffeeDb>();
+            services.AddSingleton<IGreeter, ConfigurableGreeter>();
         }
 
-        public void Configure(IApplicationBuilder app, 
-                            IHostingEnvironment env)
+        public void Configure(
+            IApplicationBuilder app, 
+            IHostingEnvironment env)
         {
-
-            
 
             if (env.IsDevelopment())
             {
@@ -40,10 +44,11 @@ namespace aspcoreclass
 
             var options = new SayHelloOptions
             {
-                Path = "/sayhello",
-                Greeting = configuration["Greeting"]
+                Path = "/sayhello",                
             };
             app.UseGreeting(options);
+
+            app.UseMvc();
            
          }
     }

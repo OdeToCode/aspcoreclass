@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using aspcoreclass.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,6 @@ namespace aspcoreclass.Middleware
     public class SayHelloOptions
     {
         public string Path { get; set; }
-        public string Greeting { get; set; }
     }
 
 
@@ -32,11 +32,15 @@ namespace aspcoreclass.Middleware
         private readonly SayHelloOptions options;
 
         public SayHelloMiddleware(RequestDelegate next, 
-                                SayHelloOptions options)
+                                SayHelloOptions options,
+                                IGreeter greeter)
         {
             this.next = next;
             this.options = options;
+            Greeter = greeter;
         }
+
+        public IGreeter Greeter { get; }
 
         public async Task Invoke(HttpContext context)
         {
@@ -44,7 +48,7 @@ namespace aspcoreclass.Middleware
             {
                 context.Response.StatusCode = 200;
                 context.Response.ContentType = "text/plain";
-                await context.Response.WriteAsync(options.Greeting);
+                await context.Response.WriteAsync(Greeter.GetMessage());
             }
             else
             {
