@@ -42,6 +42,7 @@ namespace aspcoreclass.Controllers
         public IActionResult Delete(int coffeeId)
         {
             db.Delete(coffeeId);
+            db.SaveChanges();
             return Ok();
         }
 
@@ -51,6 +52,7 @@ namespace aspcoreclass.Controllers
             if (ModelState.IsValid)
             {
                 var model = db.Update(updatedCoffee);
+                db.SaveChanges();
                 if(model != null)
                 {
                     var result = new ObjectResult(model);
@@ -69,6 +71,7 @@ namespace aspcoreclass.Controllers
             if (ModelState.IsValid)
             {
                 var model = db.Add(newCoffee);
+                db.SaveChanges();
 
                 var result = CreatedAtRoute(
                                     new { coffeeId = newCoffee.Id },
