@@ -24,6 +24,8 @@ namespace aspcoreclass
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
+            services.AddScoped<ITeamData, TeamData>();
             services.AddScoped<IGreeter, ConfigGreeter>();
         }
 
@@ -42,15 +44,16 @@ namespace aspcoreclass
                 Message = greeter.GetMessage()
             };
             app.UseGreeting(options);
-
             
-            app.UseStaticFiles();            
+            app.UseStaticFiles();
+
+            app.UseMvc();
          
             app.Run(async (context) =>
             {            
                 context.Response.StatusCode = 200;
                 context.Response.Headers.Add("Content-Type", "text/plain");
-                await context.Response.WriteAsync("Hello World!");
+                await context.Response.WriteAsync("Hello World! (not supposed to see this)");
             });
 
             
