@@ -1,0 +1,14 @@
+﻿@model aspcoreclass.Models.Team
+<tr>
+    <td>
+        @Html.DisplayFor(m => m.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(m => m.Founded)
+    </td>
+    <td>
+        <a asp-page="./Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-page="./Details" asp-route-id="@Model.Id">Details</a> |
+        <a asp-page="./Delete" asp-route-id="@Model.Id">Delete</a>
+    </td>
+</tr>

@@ -10,7 +10,7 @@ namespace aspcoreclass.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required]       
         [StringLength(80)]       
         public string Name { get; set; }
 
