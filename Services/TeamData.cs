@@ -10,6 +10,9 @@ namespace aspcoreclass.Services
     {
         IEnumerable<Team> GetAll();
         Team Get(int id);
+        Team Add(Team newTeam);
+        Team Update(Team updatedTeam);
+        Team Delete(int id);
     }
 
     public class TeamData : ITeamData
@@ -21,6 +24,23 @@ namespace aspcoreclass.Services
             new Team { Id = 3, Name = "Brazil", Founded = 1960 }
         };
 
+        public Team Add(Team newTeam)
+        {
+            newTeam.Id = teams.Max(t => t.Id) + 1;
+            teams.Add(newTeam);
+            return newTeam;
+        }
+
+        public Team Delete(int id)
+        {
+            var team = teams.FirstOrDefault(t => t.Id == id);
+            if (team != null)
+            {
+                teams.Remove(team);
+            }
+            return team;
+        }
+
         public Team Get(int id)
         {
             return teams.FirstOrDefault(t => t.Id == id);
@@ -29,6 +49,17 @@ namespace aspcoreclass.Services
         public IEnumerable<Team> GetAll()
         {
             return teams.OrderBy(t => t.Founded);
+        }
+
+        public Team Update(Team updatedTeam)
+        {
+            var team = teams.FirstOrDefault(t => t.Id == updatedTeam.Id);
+            if(team != null)
+            {
+                team.Name = updatedTeam.Name;
+                team.Founded = updatedTeam.Founded;
+            }
+            return team;
         }
     }
 }
