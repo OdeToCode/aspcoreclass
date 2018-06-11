@@ -36,7 +36,8 @@ namespace aspcoreclass
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)                      
+            WebHost.CreateDefaultBuilder(args)   
+                   .CaptureStartupErrors(true)
                    .UseStartup<Startup>();
     }
 }
