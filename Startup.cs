@@ -39,6 +39,9 @@ namespace aspcoreclass
                 IApplicationBuilder app, 
                 IHostingEnvironment env, IGreeter greeter)
         {
+
+
+            throw new Exception("oops!");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
