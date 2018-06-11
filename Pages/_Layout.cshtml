@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <environment include="Development">
+        <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    </environment>
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+    @RenderSection("Scripts", required:false)
+</body>
+</html>

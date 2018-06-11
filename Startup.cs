@@ -47,6 +47,7 @@ namespace aspcoreclass
             }
 
             app.UseStaticFiles();
+            app.UseNodeModules(env);
 
             var options = new SayHelloOptions
             {
