@@ -42,6 +42,7 @@ namespace aspcoreclass.Controllers
         public IActionResult Delete(int id)
         {
             var team = teamData.Delete(id);
+            teamData.Commit();
             return Ok();
         }
 
@@ -51,6 +52,7 @@ namespace aspcoreclass.Controllers
             if (ModelState.IsValid)
             {
                 var team = teamData.Update(updatedTeam);
+                teamData.Commit();
                 return new ObjectResult(updatedTeam);
             }
             return BadRequest(ModelState);
@@ -62,6 +64,7 @@ namespace aspcoreclass.Controllers
             if (ModelState.IsValid)
             {
                 var team = teamData.Add(newTeam);
+                teamData.Commit();
                 return CreatedAtRoute(new { team.Id }, team);
             }
             return BadRequest(ModelState);

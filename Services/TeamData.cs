@@ -1,4 +1,5 @@
 ﻿using aspcoreclass.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,52 @@ namespace aspcoreclass.Services
         Team Add(Team newTeam);
         Team Update(Team updatedTeam);
         Team Delete(int id);
+        int Commit();
+    }
+
+    public class SqlTeamData : ITeamData
+    {
+        private readonly TeamDbContext db;
+
+        public SqlTeamData(TeamDbContext db)
+        {
+            this.db = db;
+        }
+
+        public Team Add(Team newTeam)
+        {
+            db.Teams.Add(newTeam);
+            return newTeam;
+        }
+
+        public Team Delete(int id)
+        {
+            var team = db.Teams.Find(id);
+            db.Teams.Remove(team);
+            return team;
+        }
+
+        public Team Get(int id)
+        {
+            return db.Teams.Find(id);
+        }
+
+        public IEnumerable<Team> GetAll()
+        {
+            return db.Teams.OrderBy(t => t.Founded);
+        }
+
+        public Team Update(Team updatedTeam)
+        {
+            var entity = db.Teams.Attach(updatedTeam);
+            entity.State = EntityState.Modified;
+            return updatedTeam;
+        }
+
+        public int Commit()
+        {
+            return db.SaveChanges();
+        }
     }
 
     public class TeamData : ITeamData
@@ -29,6 +76,11 @@ namespace aspcoreclass.Services
             newTeam.Id = teams.Max(t => t.Id) + 1;
             teams.Add(newTeam);
             return newTeam;
+        }
+
+        public int Commit()
+        {
+            return 0;
         }
 
         public Team Delete(int id)
