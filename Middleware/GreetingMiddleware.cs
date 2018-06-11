@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -34,12 +35,13 @@ namespace aspcoreclass.Middleware
             this.options = options;
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context, IHostingEnvironment env)
         {           
+            
             if (context.Request.Path.StartsWithSegments(options.Path))
             {
                 context.Response.Headers.Add("Content-Type", "text/plain");
-                await context.Response.WriteAsync(options.Message);
+                await context.Response.WriteAsync($"{options.Message} from {env.EnvironmentName}");
             }
             else
             {
