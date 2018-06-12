@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using aspcoreclass.Models;
 using aspcoreclass.Services;
 
-namespace aspcoreclass.Pages
+namespace aspcoreclass.League.Pages
 {
     public class IndexModel : PageModel
     {

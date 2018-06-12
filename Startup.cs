@@ -51,18 +51,9 @@ namespace aspcoreclass
             app.UseGreeting(options);
             
             app.UseStaticFiles();
-            app.UseNodeModules(env);
+            // app.UseNodeModules(env);
 
-            app.UseMvc();
-         
-            app.Run(async (context) =>
-            {            
-                context.Response.StatusCode = 200;
-                context.Response.Headers.Add("Content-Type", "text/plain");
-                await context.Response.WriteAsync("Hello World! (not supposed to see this)");
-            });
-
-             
+            app.UseMvc();                                
         }
     }
 }
