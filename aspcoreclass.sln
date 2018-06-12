@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspcoreclass", "aspcoreclass.csproj", "{335BB863-2B33-47F8-B1E7-DF2A17AB96A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aspcoreclass", "aspcoreclass.csproj", "{335BB863-2B33-47F8-B1E7-DF2A17AB96A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,9 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{335BB863-2B33-47F8-B1E7-DF2A17AB96A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -30,5 +27,11 @@ Global
 		{335BB863-2B33-47F8-B1E7-DF2A17AB96A2}.Release|x64.Build.0 = Release|Any CPU
 		{335BB863-2B33-47F8-B1E7-DF2A17AB96A2}.Release|x86.ActiveCfg = Release|Any CPU
 		{335BB863-2B33-47F8-B1E7-DF2A17AB96A2}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {35B45B14-4EB7-40EA-83FA-89ECB9ACBECE}
 	EndGlobalSection
 EndGlobal

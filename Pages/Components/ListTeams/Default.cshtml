@@ -1,0 +1,8 @@
+﻿@model  IEnumerable<aspcoreclass.Models.Team>
+
+
+<h2>This is the view component</h2>
+@foreach(var team in Model)
+{
+    <div>@team.Name</div>
+}
