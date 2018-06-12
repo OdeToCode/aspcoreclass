@@ -3,12 +3,21 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+
+    <environment include="Development">
+        <link href="~/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" /> 
+    </environment>
+    <environment exclude="Development">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" />
+    </environment>
+
+
     <title>@ViewBag.Title</title>
 </head>
 <body>
     <div>
         @RenderBody()
     </div>
-    @RenderSection("Scripts", true)
+    @RenderSection("Scripts", false)
 </body>
 </html>
